@@ -1,6 +1,57 @@
 <mvc:View controllerName="zfile.controller.View1"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    xmlns:ui="sap.ui.unified">
     <Page id="page" title="{i18n>title}">
+
+        <IconTabBar id="Tabs1">
+		<items>
+			<IconTabFilter text="Upload de Arquivos" key="info">
+
+                <VBox>
+                    <ui:FileUploader id="fileUploader" change="onChangeUpload" multiple="true"/>
+                    <Button text="Enviar ao servidor" press="onPressUpload"/>
+                </VBox>
+
+                <VBox>
+                    <Text text="Arquivo de texto"/>
+                    <TextArea id="texto1" rows="4" width="100%" />
+
+                    <Text text="Arquivo Excel (binário)" class="sapUiSmallMarginTop"/>
+                    <TextArea id="texto2" rows="4" width="100%" />
+
+                    <Text text="Arquivo de imagem (binário)" class="sapUiSmallMarginTop"/>
+                    <Image id="imagem1" width="600px"/>
+                    
+                    <Text text="Arquivo PDF (binário)" class="sapUiSmallMarginTop"/>
+                    <PDFViewer id="pdf1" source="" isTrustedSource="true" title="Documento PDF" height="400px"/>
+                </VBox>
+
+            </IconTabFilter>
+            <IconTabFilter text="Lista de Arquivos" key="info">
+           
+                <List
+                    id="list1"
+                    mode="Delete"
+                    
+                    delete="onDelete"
+                    enableBusyIndicator="true"
+                    headerText="Arquivos"
+                    growing="false"
+                    items="{path: 'fileModel>/'}"
+                    includeItemInSelection="true"
+                    >
+                    <StandardListItem
+                    type="Active"
+                        title="{fileModel>Filename} ({fileModel>Filesize})"
+                        description="{fileModel>Fileid}"
+                        icon=""
+                        iconDensityAware="false"
+                        press="onPressItem"
+                        iconInset="false" />
+                </List>
+            </IconTabFilter>
+        </items>
+        </IconTabBar>
     </Page>
 </mvc:View>
